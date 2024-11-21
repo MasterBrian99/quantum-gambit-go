@@ -42,6 +42,10 @@ func (b *Board) Initialize() {
 		b.squares[12*9+2+i] = Pieces{color: White, kind: kind} // White major pieces
 	}
 }
+
+func (b *Board) FromFen(fen string) {
+
+}
 func (b *Board) PrintBoard() {
 	for row := 0; row < 12; row++ {
 		for col := 0; col < 12; col++ {
@@ -62,7 +66,8 @@ func (b *Board) PrintBoard() {
 }
 func (b *Board) PrintEmojiBoard() {
 	println("      a b c d e f g h")
-
+	//var arr = [64]int{}
+	//var arr = make([]int, 64)
 	var playableRank = 8
 	for i := 0; i < 12; i++ {
 		if i == 0 || i == 11 {
@@ -73,6 +78,8 @@ func (b *Board) PrintEmojiBoard() {
 			for j := 2; j < 10; j++ {
 				var index = i*12 + j
 				var piece = b.squares[index]
+				//println(index)
+				//arr = append(arr, index)
 				if piece.kind == 0 {
 					fmt.Printf("x ")
 				} else {
@@ -86,6 +93,7 @@ func (b *Board) PrintEmojiBoard() {
 		}
 	}
 	fmt.Println("      a b c d e f g h")
+	//fmt.Println(arr)
 }
 
 func kindToString(kind Kind) string {
@@ -127,7 +135,6 @@ func (b *Board) GetPieceEmoji(piece Pieces) string {
 		},
 	}
 
-	// Return the corresponding emoji or a default placeholder
 	if colorMap, ok := emojis[piece.color]; ok {
 		if emoji, ok := colorMap[piece.kind]; ok {
 			return emoji
