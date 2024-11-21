@@ -2,6 +2,7 @@ package chess
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -10,14 +11,15 @@ type Fen struct {
 	activeColor                                     Color // who's turn it is
 	whiteCanCastleQueenSide, whiteCanCastleKingSide bool
 	blackCanCastleQueenSide, blackCanCastleKingSide bool
-	enPassantSquare                                 int //TODO: use square
+	enPassantSquare                                 Square
+	enPassantIndex                                  int
 	halfMoveClock                                   int //use to  50 moves rule
 	fullMoveNumber                                  int
 	fen                                             string
 }
 
 // rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2
-const INITIAL_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+const INITIAL_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1\n"
 
 func (f *Fen) Init() error {
 	_, err := f.ParseFen(INITIAL_FEN)
@@ -64,5 +66,23 @@ func (f *Fen) ParseFen(fen string) (*Fen, error) {
 	f.whiteCanCastleQueenSide = strings.Contains(castlingRights, "Q")
 	f.blackCanCastleKingSide = strings.Contains(castlingRights, "k")
 	f.blackCanCastleQueenSide = strings.Contains(castlingRights, "q")
+	enPassantSquare := parts[3]
+	if enPassantSquare != "-" {
+		var splitEnPassant = strings.Split(enPassantSquare, "")
+		rank, err := strconv.Atoi(splitEnPassant[1])
+		if err != nil {
+			panic(err)
+		}
+		sq := Square{
+			File: splitEnPassant[0],
+			Rank: rank,
+		}
+		f.enPassantSquare = sq
+		f.enPassantIndex = SquareToIndex(sq)
+
+	}
+	f.halfMoveClock, _ = strconv.Atoi(parts[4])
+	f.fullMoveNumber, _ = strconv.Atoi(parts[5])
+
 	return f, nil
 }

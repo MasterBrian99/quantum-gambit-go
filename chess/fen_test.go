@@ -20,6 +20,7 @@ func TestInitFen(t *testing.T) {
 	fmt.Println("blackCanCastleQueenSide:", fen.blackCanCastleQueenSide)
 	fmt.Println("blackCanCastleKingSide:", fen.blackCanCastleKingSide)
 	fmt.Println("enPassantSquare:", fen.enPassantSquare)
+	fmt.Println("enPassantIndex:", fen.enPassantIndex)
 	fmt.Println("halfMoveClock:", fen.halfMoveClock)
 	fmt.Println("fullMoveNumber:", fen.fullMoveNumber)
 }

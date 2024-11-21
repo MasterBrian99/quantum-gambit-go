@@ -142,3 +142,7 @@ func (b *Board) GetPieceEmoji(piece Pieces) string {
 	}
 	return "x"
 }
+
+//func (b *Board) GetAvailableMoves() []string {
+//
+//}
