@@ -17,7 +17,7 @@ const (
 type Color int
 type Kind int
 
-type Pieces struct {
+type Piece struct {
 	color Color
 	kind  Kind
 }

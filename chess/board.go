@@ -25,21 +25,21 @@ const (
 */
 
 type Board struct {
-	squares [BoardSize]Pieces
+	squares [BoardSize]Piece
 }
 
 func (b *Board) Initialize() {
 	for i := 0; i < 144; i++ {
-		b.squares[i] = Pieces{}
+		b.squares[i] = Piece{}
 	}
 	for i := 0; i < PlayableSquares; i++ {
-		b.squares[12*3+2+i] = Pieces{color: Black, kind: Pawn} //39,40,41
-		b.squares[12*8+2+i] = Pieces{color: White, kind: Pawn} // 111,112,113
+		b.squares[12*3+2+i] = Piece{color: Black, kind: Pawn} //39,40,41
+		b.squares[12*8+2+i] = Piece{color: White, kind: Pawn} // 111,112,113
 	}
 	initialSetup := []Kind{Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook}
 	for i, kind := range initialSetup {
-		b.squares[12*2+2+i] = Pieces{color: Black, kind: kind} // Black major pieces
-		b.squares[12*9+2+i] = Pieces{color: White, kind: kind} // White major pieces
+		b.squares[12*2+2+i] = Piece{color: Black, kind: kind} // Black major pieces
+		b.squares[12*9+2+i] = Piece{color: White, kind: kind} // White major pieces
 	}
 }
 
@@ -115,7 +115,7 @@ func kindToString(kind Kind) string {
 	}
 }
 
-func (b *Board) GetPieceEmoji(piece Pieces) string {
+func (b *Board) GetPieceEmoji(piece Piece) string {
 	emojis := map[Color]map[Kind]string{
 		Black: {
 			King:   "♚",
